@@ -9,7 +9,7 @@ class AlertModal extends Component {
 		window.setAlert = this
 	}
 
-	showAlert = (title, msg) => {
+	show = (title, msg) => {
 		this.context.alertDispatch({
 			type: 'SHOW_ALERT',
 			title: title,
@@ -17,7 +17,7 @@ class AlertModal extends Component {
 		})
 	}
 
-	closeAlert = () => {
+	close = () => {
 		this.context.alertDispatch({ type: 'CLOSE_ALERT' })
 	}
 
@@ -31,7 +31,7 @@ class AlertModal extends Component {
 						<p>{msg}</p>
 					</Modal.Content>
 					<Modal.Actions>
-						<Button id="alertSuccess" color="blue" onClick={() => this.closeAlert()}>
+						<Button id="alertSuccess" color="blue" onClick={() => this.close()}>
 							확인
 						</Button>
 					</Modal.Actions>

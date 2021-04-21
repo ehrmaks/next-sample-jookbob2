@@ -60,9 +60,10 @@ export default function Store({ children }) {
 		if (cookies.userInfo) accessToken = cookies.userInfo.accessToken
 
 		if (!accessToken) {
-			// 로그인 페이지로 이동
-			router.push('/member/memberlogin')
-			alert('권한이 없습니다. 로그인해 주세요.')
+			useAlert({ msg: '권한이 없습니다. 로그인해 주세요.' }).then(() => {
+				// 로그인 페이지로 이동
+				router.push('/member/memberlogin')
+			})
 			return false
 		}
 
@@ -100,23 +101,21 @@ export default function Store({ children }) {
 			payload: userInitialState,
 		})
 
-		// 로그인 페이지로 이동
-		router.push('/member/memberlogin')
-
-		alert('권한이 만료 되었습니다. 로그인해 주세요.')
+		useAlert({ msg: '권한이 만료 되었습니다. 로그인해 주세요.' }).then(() => {
+			// 로그인 페이지로 이동
+			router.push('/member/memberlogin')
+		})
 	}
 
 	/*
 	 * Confirm Modal
-	 * @param type(유형), title(제목), msg(메시지)
+	 * @param title(제목), msg(메시지)
 	 * @return Promise
 	 */
-	function useConfirm({ type, title, msg }) {
-		if (!confirmDispatch) {
-			throw new Error('Cannot find ConfirmProvider')
-		}
+	function useConfirm({ title, msg }) {
+		if (!confirmDispatch) throw new Error('Cannot find ConfirmProvider')
 
-		confirmDispatch({ type, title, msg })
+		confirmDispatch({ type: 'SHOW_CONFIRM', title, msg })
 
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
@@ -138,15 +137,13 @@ export default function Store({ children }) {
 
 	/*
 	 * Alert Modal
-	 * @param type(유형), title(제목), msg(메시지)
+	 * @param title(제목), msg(메시지)
 	 * @return Promise
 	 */
-	function useAlert({ type, title, msg }) {
-		if (!alertDispatch) {
-			throw new Error('Cannot find AlertProvder')
-		}
+	function useAlert({ title, msg }) {
+		if (!alertDispatch) throw new Error('Cannot find AlertProvder')
 
-		alertDispatch({ type, title, msg })
+		alertDispatch({ type: 'SHOW_ALERT', title, msg })
 
 		return new Promise(resolve => {
 			setTimeout(() => {

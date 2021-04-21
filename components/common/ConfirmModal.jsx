@@ -9,7 +9,7 @@ class ConfirmModal extends Component {
 		window.setConfirm = this
 	}
 
-	showConfirm = (title, msg) => {
+	show = (title, msg) => {
 		this.context.confirmDispatch({
 			type: 'SHOW_CONFIRM',
 			title,
@@ -17,11 +17,7 @@ class ConfirmModal extends Component {
 		})
 	}
 
-	closeConfirm = () => {
-		this.context.confirmDispatch({ type: 'CLOSE_CONFIRM' })
-	}
-
-	successConfirm = () => {
+	close = () => {
 		this.context.confirmDispatch({ type: 'CLOSE_CONFIRM' })
 	}
 
@@ -35,10 +31,10 @@ class ConfirmModal extends Component {
 						<p>{msg}</p>
 					</Modal.Content>
 					<Modal.Actions>
-						<Button id="confirmCancel" color="red" onClick={() => this.closeConfirm()}>
+						<Button id="confirmCancel" color="red" onClick={() => this.close()}>
 							취소
 						</Button>
-						<Button id="confirmSuccess" color="blue" onClick={() => this.successConfirm()}>
+						<Button id="confirmSuccess" color="blue" onClick={() => this.close()}>
 							확인
 						</Button>
 					</Modal.Actions>

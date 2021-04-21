@@ -4,15 +4,21 @@ import React, { useContext } from 'react'
 import { Button } from 'semantic-ui-react'
 
 export default function Common() {
-	const { alertDispatch } = useContext(AlertStateContext)
-	const { confirmDispatch } = useContext(ConfirmStateContext)
+	const { useAlert } = useContext(AlertStateContext)
+	const { useConfirm } = useContext(ConfirmStateContext)
 
 	function showAlert() {
-		alertDispatch({ type: 'SHOW_ALERT', title: '알림창', msg: '알림창 입니다.' })
+		useAlert({ type: 'SHOW_ALERT', title: '알림창', msg: '알림창 입니다.' })
 	}
 
 	function showConfirm() {
-		confirmDispatch({ type: 'SHOW_CONFIRM', title: '확인창', msg: '확인창 입니다.' })
+		useConfirm({ type: 'SHOW_CONFIRM', title: '확인', msg: '확인내용' })
+			.then(() => {
+				useAlert({ type: 'SHOW_ALERT', title: '', msg: '확인 되었습니다.' })
+			})
+			.catch(() => {
+				useAlert({ type: 'SHOW_ALERT', title: '', msg: '취소 되었습니다.' })
+			})
 	}
 
 	return (

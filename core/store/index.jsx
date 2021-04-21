@@ -18,10 +18,16 @@ export default function Store({ children }) {
 	const [cookies, , removeCookie] = useCookies(['userInfo'])
 	const router = useRouter()
 
+	/*
+	 * 인증을 필요로 하는 Path 토큰 검증
+	 */
 	useEffect(() => {
 		if (authPathList.includes(router.asPath)) validateAccessToken()
 	}, [router.asPath])
 
+	/*
+	 * 새로고침 or 첫화면 로딩 시 토큰 값 바인딩
+	 */
 	useEffect(() => {
 		// 로그인 상태라면 쿠키의 정보를 스토어에 저장
 		if (cookies.userInfo) {
@@ -45,6 +51,10 @@ export default function Store({ children }) {
 			})
 	}, [])
 
+	/*
+	 * 토큰 검증 하는 함수
+	 * @return boolean
+	 */
 	function validateAccessToken() {
 		let accessToken
 		if (cookies.userInfo) accessToken = cookies.userInfo.accessToken
@@ -74,7 +84,9 @@ export default function Store({ children }) {
 		}
 	}
 
-	// 인증정보 만료 됐을 경우 실행되는 함수
+	/*
+	 * 인증정보 만료 됐을 경우 실행되는 함수
+	 */
 	function credentialExpiration() {
 		// 쿠키를 지움
 		removeCookie('userInfo', {
@@ -94,9 +106,63 @@ export default function Store({ children }) {
 		alert('권한이 만료 되었습니다. 로그인해 주세요.')
 	}
 
+	/*
+	 * Confirm Modal
+	 * @param type(유형), title(제목), msg(메시지)
+	 * @return Promise
+	 */
+	function useConfirm({ type, title, msg }) {
+		if (!confirmDispatch) {
+			throw new Error('Cannot find ConfirmProvider')
+		}
+
+		confirmDispatch({ type, title, msg })
+
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				const successElement = document.querySelector('#confirmSuccess')
+				const cancelElement = document.querySelector('#confirmCancel')
+				if (successElement) {
+					successElement.addEventListener('click', () => {
+						resolve()
+					})
+				}
+				if (cancelElement) {
+					cancelElement.addEventListener('click', () => {
+						reject()
+					})
+				}
+			}, 0)
+		})
+	}
+
+	/*
+	 * Alert Modal
+	 * @param type(유형), title(제목), msg(메시지)
+	 * @return Promise
+	 */
+	function useAlert({ type, title, msg }) {
+		if (!alertDispatch) {
+			throw new Error('Cannot find AlertProvder')
+		}
+
+		alertDispatch({ type, title, msg })
+
+		return new Promise(resolve => {
+			setTimeout(() => {
+				const successElement = document.querySelector('#alertSuccess')
+				if (successElement) {
+					successElement.addEventListener('click', () => {
+						resolve()
+					})
+				}
+			}, 0)
+		})
+	}
+
 	return (
-		<AlertStateContext.Provider value={{ alertState, alertDispatch }}>
-			<ConfirmStateContext.Provider value={{ confirmState, confirmDispatch }}>
+		<AlertStateContext.Provider value={{ alertState, alertDispatch, useAlert }}>
+			<ConfirmStateContext.Provider value={{ confirmState, confirmDispatch, useConfirm }}>
 				<LoadingStateContext.Provider value={{ loadState, loadDispatch }}>
 					<UserStateContext.Provider value={{ userState, userDispatch }}>
 						{children}

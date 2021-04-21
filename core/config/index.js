@@ -9,9 +9,8 @@ function setInterceptors(instance) {
 		},
 		error => {
 			// 로딩바 종료
-			if (error.config) {
-				window.loading.onEnd()
-			}
+			if (error.config) window.loading.onEnd()
+
 			return Promise.reject(error.response)
 		},
 	)

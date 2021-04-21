@@ -12,8 +12,8 @@ class ConfirmModal extends Component {
 	showConfirm = (title, msg) => {
 		this.context.confirmDispatch({
 			type: 'SHOW_CONFIRM',
-			title: title,
-			msg: msg,
+			title,
+			msg,
 		})
 	}
 
@@ -21,20 +21,24 @@ class ConfirmModal extends Component {
 		this.context.confirmDispatch({ type: 'CLOSE_CONFIRM' })
 	}
 
+	successConfirm = () => {
+		this.context.confirmDispatch({ type: 'CLOSE_CONFIRM' })
+	}
+
 	render() {
 		const { size, open, title, msg } = this.context.confirmState
 		return (
 			<>
-				<Modal size={size} open={open} onClose={() => this.closeConfirm()}>
+				<Modal size={size} open={open}>
 					{title && <Modal.Header>{title}</Modal.Header>}
 					<Modal.Content>
 						<p>{msg}</p>
 					</Modal.Content>
 					<Modal.Actions>
-						<Button color="red" onClick={() => this.closeConfirm()}>
+						<Button id="confirmCancel" color="red" onClick={() => this.closeConfirm()}>
 							취소
 						</Button>
-						<Button color="blue" onClick={() => this.closeConfirm()}>
+						<Button id="confirmSuccess" color="blue" onClick={() => this.successConfirm()}>
 							확인
 						</Button>
 					</Modal.Actions>

@@ -25,13 +25,13 @@ class AlertModal extends Component {
 		const { size, open, title, msg } = this.context.alertState
 		return (
 			<>
-				<Modal size={size} open={open} onClose={() => this.closeAlert()}>
+				<Modal size={size} open={open}>
 					{title && <Modal.Header>{title}</Modal.Header>}
 					<Modal.Content>
 						<p>{msg}</p>
 					</Modal.Content>
 					<Modal.Actions>
-						<Button color="blue" onClick={() => this.closeAlert()}>
+						<Button id="alertSuccess" color="blue" onClick={() => this.closeAlert()}>
 							확인
 						</Button>
 					</Modal.Actions>

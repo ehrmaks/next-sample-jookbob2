@@ -6,11 +6,24 @@
         "dom.iterable",
         "esnext"
       ],
-      "jsx": "preserve",
+      "skipLibCheck": true,
+      "strict": false,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "esModuleInterop": true,
       "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "experimentalDecorators" : true,
+      "jsx": "preserve",
       "baseUrl": ".",
       "paths": {
+        "@": ["./"],
         "@/*": ["./*"],
+        "@comp/*": ["./components/*"],
+        "@api/*": ["./core/api/*"],
+        "@store/*": ["./core/store/*"],
       }
     },
     "include": [

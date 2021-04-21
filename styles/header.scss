@@ -1,0 +1,117 @@
+.navbar {
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+  background-color: var(--backgound-color);
+  padding: 8px 64px;
+  border-bottom: 3px solid #ffb000;
+  .navbar__logo {
+    font-size: 24px;
+    color: var(--text-color);
+    .accusoft {
+      padding: 0px 10px 0px 10px;
+      align-items: center;
+      width: 32px;
+      color: var(--accent-color);
+    }
+  }
+  .navbar__flex {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    padding: 20px 0;
+  }
+  .navbar__menu__frame {
+    .navbar__menu {
+      display: flex;
+      list-style: none;
+      padding-left: 64px;
+      li {
+        padding: 0 15px;
+        height: auto;
+        line-height: 0.8;
+      }
+      li:hover {
+        a {
+          color: #ff9601;
+          border-radius: 4px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+  .navbar__icons {
+    list-style: none;
+    color: var(--text-color);
+    display: flex;
+    padding-left: 0;
+    li {
+      padding: 0 15px;
+      height: auto;
+      line-height: 0.8;
+      svg {
+        cursor: pointer;
+      }
+    }
+    li:hover {
+      a {
+        color: #ff9601;
+      }
+    }
+  }
+  
+  .navbar__toogleBtn {
+    display: none;
+  }
+
+  .navbar__username {
+    position: absolute;
+    color: white;
+    right: 60px;
+  }
+
+  .navbar__border__right {
+    border-right: 1px solid #787878;
+  }
+}
+  
+@media screen and (max-width: 768px){
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 24px;
+
+    .navbar__menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      li {
+        width: 100%;
+        text-align: center;
+      }
+    }
+    
+    .navbar__icons {
+      display: none;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    .navbar__toogleBtn {
+      display: block;
+      position: absolute;
+      right: 32px;
+      .bars {
+        width: 24px;
+        color: var(--accent-color);
+      }
+    }
+
+    .navbar__menu.active,
+    .navbar__icons.active {
+      display: flex;
+    }
+  }
+}
+  

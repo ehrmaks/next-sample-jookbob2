@@ -37,4 +37,10 @@ function create(url, options) {
 	return instance
 }
 
+function noneAuthCreate(url, options) {
+	const instance = axios.create(Object.assign({ baseURL: url }, options))
+	return instance
+}
+
 export const defaultClient = create(process.env.NEXT_PUBLIC_API_URL)
+export const localClient = noneAuthCreate('http://localhost:8080')

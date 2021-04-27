@@ -55,14 +55,14 @@ export default function Header() {
 						<li>signout</li>
 					) : (
 						<li className="navbar__border__right">
-							<Link href="/member/member-login">
+							<Link href="/user/user-login">
 								<a>로그인</a>
 							</Link>
 						</li>
 					)}
 					{!userState.accessToken && (
 						<li>
-							<Link href="/member/member-join">
+							<Link href="/user/user-join">
 								<a>회원가입</a>
 							</Link>
 						</li>

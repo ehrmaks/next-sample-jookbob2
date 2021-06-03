@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Link from 'next/link'
-import { UserStateContext } from '@/core/store/create'
+import { UserStateContext } from '@store/create'
 
 export default function Header() {
 	const { userState } = useContext(UserStateContext)

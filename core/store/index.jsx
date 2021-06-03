@@ -91,7 +91,7 @@ export default function Store({ children }) {
 	function credentialExpiration() {
 		// 쿠키를 지움
 		removeCookie('userInfo', {
-			domain: location.href.includes('localhost') ? 'localhost' : process.env.NEXT_COOKIE_DOMAIN,
+			domain: location.href.includes('localhost') ? 'localhost' : process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
 			path: '/',
 		})
 

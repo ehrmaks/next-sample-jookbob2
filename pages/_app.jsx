@@ -1,15 +1,15 @@
 import 'semantic-ui-css/semantic.min.css'
-import '@/styles/globals.scss'
-import '@/styles/header.scss'
-import '@/styles/footer.scss'
+import '@styles/globals.scss'
+import '@styles/layouts/header.scss'
+import '@styles/layouts/footer.scss'
 import Footer from '@comp/layouts/Footer'
 import Header from '@comp/layouts/Header'
-import Loading from '@/components/common/Loading'
-import AppContainer from '@/components/container/app/AppContainer'
-import AlertModal from '@/components/common/AlertModal'
-import ConfirmModal from '@/components/common/ConfirmModal'
-import Store from '@/core/store'
-import Router from '@/components/common/Router'
+import Loading from '@comp/common/Loading'
+import AppContainer from '@comp/container/app/AppContainer'
+import AlertModal from '@comp/common/AlertModal'
+import ConfirmModal from '@comp/common/ConfirmModal'
+import Store from '@store/index'
+import Router from '@comp/common/Router'
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
 					<Loading />
 					<AlertModal />
 					<ConfirmModal />
-					<AppContainer Comp={{ Page: Component, pageProps }}></AppContainer>
+					<AppContainer Component={{ Page: Component, pageProps }} />
 				</div>
 				<Footer></Footer>
 			</Store>

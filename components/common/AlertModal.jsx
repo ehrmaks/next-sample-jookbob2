@@ -1,4 +1,4 @@
-import { AlertStateContext } from '@/core/store/create'
+import { AlertStateContext } from '@store/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 
@@ -9,11 +9,11 @@ class AlertModal extends Component {
 		window.setAlert = this
 	}
 
-	show = (title, msg) => {
+	show = ({ title, msg }) => {
 		this.context.alertDispatch({
 			type: 'SHOW_ALERT',
-			title: title,
-			msg: msg,
+			title,
+			msg,
 		})
 	}
 

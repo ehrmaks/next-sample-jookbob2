@@ -1,4 +1,4 @@
-import { defaultClient } from '@/core/config'
+import { defaultClient } from '@/core/config/axios'
 
 export function boardList() {
 	return defaultClient.get('/list_movies.json')

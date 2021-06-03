@@ -1,3 +1,3 @@
-export default function AppContainer({ Comp }) {
-	return <Comp.Page {...Comp.pageProps} />
+export default function AppContainer({ Component }) {
+	return <Component.Page {...Component.pageProps} />
 }

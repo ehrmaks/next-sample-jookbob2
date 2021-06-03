@@ -24,6 +24,7 @@
         "@comp/*": ["./components/*"],
         "@api/*": ["./core/api/*"],
         "@store/*": ["./core/store/*"],
+        "@styles/*": ["./styles/*"],
       }
     },
     "include": [

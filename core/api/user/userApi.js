@@ -1,11 +1,11 @@
-import { localClient } from '@/core/config'
+import { authClient, noneAuthClient } from '@/core/config/axios'
 
 /*
  * 로그인
  * @param loginInfo(email, passwd)
  */
 export function userLogin(loginInfo) {
-	return localClient.post('/user/login', loginInfo)
+	return noneAuthClient.post('/user/login', loginInfo)
 }
 
 /*
@@ -13,7 +13,7 @@ export function userLogin(loginInfo) {
  * @param id
  */
 export function userLogout(id) {
-	return localClient.post(`/user/logout/${id}`)
+	return authClient.post(`/user/logout/${id}`)
 }
 
 /* 
@@ -37,7 +37,7 @@ export function userLogout(id) {
     private String phone;)
 */
 export function userJoin(userInfo) {
-	return localClient.post(`/user`, userInfo)
+	return noneAuthClient.post(`/user`, userInfo)
 }
 
 /*
@@ -45,5 +45,5 @@ export function userJoin(userInfo) {
  * @param email
  */
 export function userDupCheck(email) {
-	return localClient.get(`/user/duplicate/${email}`)
+	return noneAuthClient.get(`/user/duplicate/${email}`)
 }

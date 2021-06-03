@@ -1,4 +1,4 @@
-import { LoadingStateContext } from '@/core/store/create'
+import { LoadingStateContext } from '@store/create'
 import React, { Component } from 'react'
 import { Loader } from 'semantic-ui-react'
 

@@ -11,6 +11,6 @@ export default function Meta({ title, desc }) {
 }
 
 Meta.defaultProps = {
-	title: 'Home',
-	desc: '홈 입니다.',
+	title: 'Silkroad',
+	desc: '실크로드입니다.',
 }

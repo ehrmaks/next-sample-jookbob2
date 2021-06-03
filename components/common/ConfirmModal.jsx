@@ -1,4 +1,4 @@
-import { ConfirmStateContext } from '@/core/store/create'
+import { ConfirmStateContext } from '@store/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 

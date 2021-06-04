@@ -43,3 +43,12 @@ export const userReducer = (state, { type, payload }) => {
 			break
 	}
 }
+
+export const langReducer = (state, { type, payload }) => {
+	switch (type) {
+		case 'SET_LANG':
+			return { lang: payload }
+		default:
+			break
+	}
+}

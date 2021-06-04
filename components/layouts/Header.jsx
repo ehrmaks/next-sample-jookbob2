@@ -1,9 +1,15 @@
 import React, { useContext } from 'react'
 import Link from 'next/link'
-import { UserStateContext } from '@store/create'
+import { LangStateContext, UserStateContext } from '@store/create'
+import { i18nChangeLanguage } from '@lang/i18n'
+import { Dropdown } from 'semantic-ui-react'
+import { langOptions } from '@/lang/options'
+import { useTranslation } from 'react-i18next'
 
 export default function Header() {
+	const { t } = useTranslation()
 	const { userState } = useContext(UserStateContext)
+	const { langState, langDispatch } = useContext(LangStateContext)
 
 	const handleClickToggleMenu = () => {
 		const menu = document.querySelector('.navbar__menu')
@@ -11,6 +17,14 @@ export default function Header() {
 
 		menu.classList.toggle('active')
 		icons.classList.toggle('active')
+	}
+
+	const handleChangeLang = value => {
+		langDispatch({
+			type: 'SET_LANG',
+			payload: value,
+		})
+		i18nChangeLanguage(value)
 	}
 
 	return (
@@ -29,17 +43,17 @@ export default function Header() {
 					<ul className="navbar__menu">
 						<li className="navbar__border__right">
 							<Link href={'/'}>
-								<a>Home</a>
+								<a>{t('menu1')}</a>
 							</Link>
 						</li>
 						<li className="navbar__border__right">
 							<Link href={'/board/board-list'}>
-								<a>게시판</a>
+								<a>{t('menu2')}</a>
 							</Link>
 						</li>
 						<li>
 							<Link href={'/common'}>
-								<a>공통</a>
+								<a>{t('menu3')}</a>
 							</Link>
 						</li>
 					</ul>
@@ -56,14 +70,14 @@ export default function Header() {
 					) : (
 						<li className="navbar__border__right">
 							<Link href="/user/user-login">
-								<a>로그인</a>
+								<a>{t('login')}</a>
 							</Link>
 						</li>
 					)}
 					{!userState.accessToken && (
 						<li>
 							<Link href="/user/user-join">
-								<a>회원가입</a>
+								<a>{t('join')}</a>
 							</Link>
 						</li>
 					)}
@@ -72,6 +86,16 @@ export default function Header() {
 				<a href="#" className="navbar__toogleBtn" onClick={handleClickToggleMenu}>
 					hamburger
 				</a>
+			</div>
+			<div className="navbar__lang">
+				<Dropdown
+					className="navbar__lang__select"
+					options={langOptions}
+					search
+					selection
+					onChange={(e, data) => handleChangeLang(data.value)}
+					value={langState.lang}
+				/>
 			</div>
 		</nav>
 	)

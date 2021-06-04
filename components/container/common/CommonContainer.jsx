@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { AlertStateContext, ConfirmStateContext, LoadingStateContext } from '@/core/store/create'
+import { AlertStateContext, ConfirmStateContext } from '@/core/store/create'
 import { Button } from 'semantic-ui-react'
+import { useTranslation } from 'react-i18next'
 
 export default function CommonContainer() {
-	const { loadState } = useContext(LoadingStateContext)
+	const { t } = useTranslation()
 	const { useAlert } = useContext(AlertStateContext)
 	const { useConfirm } = useContext(ConfirmStateContext)
 
@@ -22,17 +23,13 @@ export default function CommonContainer() {
 	}
 
 	return (
-		<>
-			{!loadState.loading && (
-				<div>
-					<span>
-						<Button onClick={() => showAlert()}>Alert</Button>
-					</span>
-					<span>
-						<Button onClick={() => showConfirm()}>Confirm</Button>
-					</span>
-				</div>
-			)}
-		</>
+		<div>
+			<span>
+				<Button onClick={() => showAlert()}>{t('button_alert')}</Button>
+			</span>
+			<span>
+				<Button onClick={() => showConfirm()}>{t('button_confirm')}</Button>
+			</span>
+		</div>
 	)
 }

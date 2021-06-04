@@ -2,9 +2,22 @@ import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
 import React, { useEffect, useReducer } from 'react'
 import { useCookies } from 'react-cookie'
-import { AlertStateContext, ConfirmStateContext, LoadingStateContext, UserStateContext } from './create'
-import { alertInitialState, confirmInitialState, loadingInitialState, userInitialState } from './initialState'
-import { alertReducer, confirmReducer, loadingReducer, userReducer } from './reducer'
+import {
+	AlertStateContext,
+	ConfirmStateContext,
+	LangStateContext,
+	LoadingStateContext,
+	UserStateContext,
+} from './create'
+import {
+	alertInitialState,
+	confirmInitialState,
+	langInitialState,
+	loadingInitialState,
+	userInitialState,
+} from './initialState'
+import { alertReducer, confirmReducer, langReducer, loadingReducer, userReducer } from './reducer'
+import { getLocale, i18nChangeLanguage } from '@lang/i18n'
 
 // 권한이 필요한 asPath List
 const authPathList = ['/member/memberlist']
@@ -14,6 +27,7 @@ export default function Store({ children }) {
 	const [confirmState, confirmDispatch] = useReducer(confirmReducer, confirmInitialState)
 	const [loadState, loadDispatch] = useReducer(loadingReducer, loadingInitialState)
 	const [userState, userDispatch] = useReducer(userReducer, userInitialState)
+	const [langState, langDispatch] = useReducer(langReducer, langInitialState)
 
 	const [cookies, , removeCookie] = useCookies(['userInfo'])
 	const router = useRouter()
@@ -50,6 +64,28 @@ export default function Store({ children }) {
 				payload: userInitialState,
 			})
 	}, [])
+
+	/*
+	 * 기본 언어 설정
+	 */
+	useEffect(() => {
+		langDispatch({
+			type: 'SET_LANG',
+			payload: getLocale(),
+		})
+
+		i18nChangeLanguage(getLocale())
+	}, [])
+
+	/*
+	 * 페이지 이동 시 로딩 없애기
+	 */
+	useEffect(() => {
+		if (loadState.loading)
+			loadDispatch({
+				type: 'ON_END',
+			})
+	}, [router.asPath])
 
 	/*
 	 * 토큰 검증 하는 함수
@@ -158,14 +194,16 @@ export default function Store({ children }) {
 	}
 
 	return (
-		<AlertStateContext.Provider value={{ alertState, alertDispatch, useAlert }}>
-			<ConfirmStateContext.Provider value={{ confirmState, confirmDispatch, useConfirm }}>
-				<LoadingStateContext.Provider value={{ loadState, loadDispatch }}>
-					<UserStateContext.Provider value={{ userState, userDispatch }}>
-						{children}
-					</UserStateContext.Provider>
-				</LoadingStateContext.Provider>
-			</ConfirmStateContext.Provider>
-		</AlertStateContext.Provider>
+		<LangStateContext.Provider value={{ langState, langDispatch }}>
+			<AlertStateContext.Provider value={{ alertState, alertDispatch, useAlert }}>
+				<ConfirmStateContext.Provider value={{ confirmState, confirmDispatch, useConfirm }}>
+					<LoadingStateContext.Provider value={{ loadState, loadDispatch }}>
+						<UserStateContext.Provider value={{ userState, userDispatch }}>
+							{children}
+						</UserStateContext.Provider>
+					</LoadingStateContext.Provider>
+				</ConfirmStateContext.Provider>
+			</AlertStateContext.Provider>
+		</LangStateContext.Provider>
 	)
 }

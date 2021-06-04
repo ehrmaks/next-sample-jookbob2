@@ -1,0 +1,13 @@
+{
+    "name": "Silkroad",
+    "short_name": "Silkroad",
+    "background_color": "#FFFFFF",
+    "theme_color": "#ffb000",
+    "description": "It's web hosting service",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [{
+        "src": "/static/favicon.ico",
+        "sizes": "32x32"
+    }]
+}

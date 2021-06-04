@@ -73,6 +73,13 @@
   .navbar__border__right {
     border-right: 1px solid #787878;
   }
+
+  .navbar__lang {
+    margin-left: 20px;
+    .navbar__lang__select {
+      min-width: 110px;
+    }
+  }
 }
   
 @media screen and (max-width: 768px){

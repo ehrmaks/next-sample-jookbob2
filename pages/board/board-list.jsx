@@ -1,12 +1,14 @@
 import React from 'react'
 import Meta from '@comp/common/Meta'
 import BoardListContainer from '@comp/container/board/BoardListContainer'
+import { useTranslation } from 'react-i18next'
 
 export default function BoardList() {
+	const { t } = useTranslation()
 	return (
 		<>
-			<Meta title="게시판 목록 | Silk Road" desc="게시판 목록입니다."></Meta>
-			<BoardListContainer />
+			<Meta title={t('meta_title_board_list')} desc={t('meta_desc_board_list')}></Meta>
+			<BoardListContainer t={t} />
 		</>
 	)
 }

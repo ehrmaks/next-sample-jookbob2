@@ -1,6 +1,7 @@
 import { ConfirmStateContext } from '@store/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
+import { withTranslation } from 'react-i18next'
 
 class ConfirmModal extends Component {
 	static contextType = ConfirmStateContext
@@ -23,6 +24,7 @@ class ConfirmModal extends Component {
 
 	render() {
 		const { size, open, title, msg } = this.context.confirmState
+		const { t } = this.props
 		return (
 			<>
 				<Modal size={size} open={open}>
@@ -32,10 +34,10 @@ class ConfirmModal extends Component {
 					</Modal.Content>
 					<Modal.Actions>
 						<Button id="confirmCancel" color="red" onClick={() => this.close()}>
-							취소
+							{t('button_n')}
 						</Button>
 						<Button id="confirmSuccess" color="blue" onClick={() => this.close()}>
-							확인
+							{t('button_y')}
 						</Button>
 					</Modal.Actions>
 				</Modal>
@@ -44,4 +46,4 @@ class ConfirmModal extends Component {
 	}
 }
 
-export default ConfirmModal
+export default withTranslation()(ConfirmModal)

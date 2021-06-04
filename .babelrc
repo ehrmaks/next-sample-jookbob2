@@ -1,27 +1,28 @@
 {
-    "presets": ["next/babel"],  
-    "plugins": [
-      ["@babel/plugin-proposal-decorators", {
-        "legacy" : true 
-      }],
-      [
-        "styled-components",
-        {
-          "ssr": true, // 서버사이드 렌더링 옵션
-          "displayName": true, // 태그 class명에 디렉토리, 컴포넌트명 추가
-          "preprocess": false
-        }
-      ],
-      ["module-resolver", {
-        "root": ["./src"],
-        "alias": {
-          "@": "./",
-          "@/*": "./*",
-          "@comp/*": "./components/*",
-          "@api/*": "./core/api/*",
-          "@store/*": "./core/store/*",
-          "@styles/*": "./styles/*"
-        }
-      }]
-    ]
-  }
+  "presets": ["next/babel"],  
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", {
+      "legacy" : true 
+    }],
+    [
+      "styled-components",
+      {
+        "ssr": true, // 서버사이드 렌더링 옵션
+        "displayName": true, // 태그 class명에 디렉토리, 컴포넌트명 추가
+        "preprocess": false
+      }
+    ],
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@": "./",
+        "@/*": "./*",
+        "@comp/*": "./components/*",
+        "@api/*": "./core/api/*",
+        "@store/*": "./core/store/*",
+        "@styles/*": "./styles/*",
+        "@lang/*": "./lang/*"
+      }
+    }]
+  ]
+}

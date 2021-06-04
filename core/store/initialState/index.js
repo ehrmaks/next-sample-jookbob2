@@ -28,3 +28,8 @@ export const userInitialState = {
 	email: '',
 	userId: '',
 }
+
+// 언어 상태
+export const langInitialState = {
+	lang: '',
+}

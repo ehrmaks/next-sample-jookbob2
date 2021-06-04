@@ -1,7 +1,11 @@
-import { LoadingStateContext } from '@/core/store/create'
-import React, { useContext } from 'react'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function HomeContainer() {
-	const { loadState } = useContext(LoadingStateContext)
-	return <>{!loadState.loading && <h1>Welcome to Silkroad</h1>}</>
+	const { t } = useTranslation()
+	return (
+		<div>
+			<h1>{t('main')}</h1>
+		</div>
+	)
 }

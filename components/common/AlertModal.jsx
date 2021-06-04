@@ -1,6 +1,7 @@
 import { AlertStateContext } from '@store/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
+import { withTranslation } from 'react-i18next'
 
 class AlertModal extends Component {
 	static contextType = AlertStateContext
@@ -23,6 +24,7 @@ class AlertModal extends Component {
 
 	render() {
 		const { size, open, title, msg } = this.context.alertState
+		const { t } = this.props
 		return (
 			<>
 				<Modal size={size} open={open}>
@@ -32,7 +34,7 @@ class AlertModal extends Component {
 					</Modal.Content>
 					<Modal.Actions>
 						<Button id="alertSuccess" color="blue" onClick={() => this.close()}>
-							확인
+							{t('button_y')}
 						</Button>
 					</Modal.Actions>
 				</Modal>
@@ -41,4 +43,4 @@ class AlertModal extends Component {
 	}
 }
 
-export default AlertModal
+export default withTranslation()(AlertModal)

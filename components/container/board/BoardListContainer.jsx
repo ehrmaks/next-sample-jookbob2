@@ -4,8 +4,10 @@ import styles from '@styles/board/board-list.module.scss'
 import { Table } from 'semantic-ui-react'
 import { boardList as boardListApi } from '@api/board/boardApi'
 import { LoadingStateContext } from '@/core/store/create'
+import { useTranslation } from 'react-i18next'
 
 export default function BoardListContainer() {
+	const { t } = useTranslation()
 	const { loadState } = useContext(LoadingStateContext)
 	const [boardList, setBoardList] = useState([])
 	const router = useRouter()
@@ -41,10 +43,10 @@ export default function BoardListContainer() {
 					<Table celled>
 						<Table.Header>
 							<Table.Row textAlign="center">
-								<Table.HeaderCell>아이디</Table.HeaderCell>
-								<Table.HeaderCell>제목</Table.HeaderCell>
-								<Table.HeaderCell>언어</Table.HeaderCell>
-								<Table.HeaderCell>출시연도</Table.HeaderCell>
+								<Table.HeaderCell>{t('table_id')}</Table.HeaderCell>
+								<Table.HeaderCell>{t('table_title')}</Table.HeaderCell>
+								<Table.HeaderCell>{t('table_lang')}</Table.HeaderCell>
+								<Table.HeaderCell>{t('table_createdt')}</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
 
@@ -60,7 +62,7 @@ export default function BoardListContainer() {
 							{boardList.length < 1 && (
 								<Table.Row>
 									<Table.Cell colSpan="4" textAlign="center">
-										데이터가 없습니다.
+										{t('table_nodata')}
 									</Table.Cell>
 								</Table.Row>
 							)}

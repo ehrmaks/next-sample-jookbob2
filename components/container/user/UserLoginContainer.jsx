@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AlertStateContext, LoadingStateContext, UserStateContext } from '@/core/store/create'
+import { AlertStateContext, UserStateContext } from '@/core/store/create'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import styles from '@styles/user/user-login.module.scss'
@@ -8,7 +8,6 @@ import { Button, Form, Icon } from 'semantic-ui-react'
 
 export default function UserLoginContainer() {
 	const router = useRouter()
-	const { loadState } = useContext(LoadingStateContext)
 	const { useAlert } = useContext(AlertStateContext)
 	const { userState, userDispatch } = useContext(UserStateContext)
 	const [, setCookie] = useCookies(['userInfo'])
@@ -90,7 +89,7 @@ export default function UserLoginContainer() {
 	}
 	return (
 		<>
-			{!loadState.loading && !userState.accessToken && (
+			{!userState.accessToken && (
 				<div className={styles.wrap}>
 					<div className={styles.login_header}>
 						<img src="/static/images/header_logo.svg" alt="logo" width="200px" />

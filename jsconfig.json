@@ -25,6 +25,7 @@
         "@api/*": ["./core/api/*"],
         "@store/*": ["./core/store/*"],
         "@styles/*": ["./styles/*"],
+        "@lang/*": ["./lang/*"]
       }
     },
     "include": [

@@ -21,7 +21,7 @@ class Loading extends Component {
 		return (
 			<>
 				{this.context.loadState.loading && (
-					<div style={{ padding: '150px 0' }}>
+					<div style={{ position: 'absolute' }}>
 						<Loader active inline="centered">
 							Loading
 						</Loader>

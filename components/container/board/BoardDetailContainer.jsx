@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Meta from '@comp/common/Meta'
 import { Button, Card } from 'semantic-ui-react'
 import { boardDetail as boardDetailApi } from '@api/board/boardApi'
 import BoardModal from '@comp/child/board/BoardModal'
-import { LoadingStateContext } from '@/core/store/create'
+import { useTranslation } from 'react-i18next'
 
 export default function BoardDetailContainer() {
+	const { t } = useTranslation()
 	const router = useRouter()
-	const { loadState } = useContext(LoadingStateContext)
 	const [movie, setMovie] = useState({})
 	const [open, setOpen] = useState(false)
 
@@ -36,8 +35,7 @@ export default function BoardDetailContainer() {
 
 	return (
 		<div>
-			<Meta title="게시판 상세 | Silk Road" desc="게시판 상세 화면입니다."></Meta>
-			{!loadState.loading && Object.keys(movie).length > 0 && (
+			{Object.keys(movie).length > 0 && (
 				<div>
 					<Card
 						image={movie.medium_cover_image}
@@ -47,7 +45,7 @@ export default function BoardDetailContainer() {
 						onClick={() => openModal()}
 					/>
 					<BoardModal open={open} setOpen={setOpen} movie={movie}></BoardModal>
-					<Button onClick={goList}>목록으로</Button>
+					<Button onClick={goList}>{t('button_golist')}</Button>
 				</div>
 			)}
 		</div>

@@ -11,8 +11,8 @@ i18n.use(initReactI18next).init({
 	// 	default: [resource.ko.value],
 	// },
 	debug: false,
-	defaultNS: Object.keys(resource.en)[0] || Object.keys(resource.ko)[0],
-	ns: Object.keys(resource.en)[0] || Object.keys(resource.ko)[0],
+	defaultNS: Object.keys(resource.ko)[0],
+	ns: Object.keys(resource.ko)[0],
 	keySeparator: false,
 	interpolation: {
 		escapeValue: false,
@@ -29,17 +29,32 @@ export function i18nChangeLanguage(lang) {
 
 // 현재 지역 정보 가져오기
 export function getLocale() {
+	let lang
+
 	if (navigator) {
 		if (navigator.language) {
-			return navigator.language
+			lang = navigator.language
 		} else if (navigator.browserLanguage) {
-			return navigator.browserLanguage
+			lang = navigator.browserLanguage
 		} else if (navigator.systemLanguage) {
-			return navigator.systemLanguage
+			lang = navigator.systemLanguage
 		} else if (navigator.userLanguage) {
-			return navigator.userLanguage
+			lang = navigator.userLanguage
 		}
 	}
+
+	return getResourceKey(lang)
+}
+
+// 지역에 따른 Resource에 정의한 키 값 반환
+function getResourceKey(lang) {
+	const array = []
+	Object.keys(resource).forEach(r => {
+		if (lang.includes(r)) array.push(r)
+	})
+
+	// 지원된다면 첫번째 언어값 반환 지원 되지 않는 언어라면 영어를 반환
+	return array.length > 0 ? array[0] : resource.en.value
 }
 
 export default i18n

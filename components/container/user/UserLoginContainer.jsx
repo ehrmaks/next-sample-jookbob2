@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AlertStateContext, UserStateContext } from '@/core/store/create'
+import { AlertStateContext, LoadingStateContext, UserStateContext } from '@/core/store/create'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import styles from '@styles/user/user-login.module.scss'
 import { userLogin } from '@/core/api/user/userApi'
 import { Button, Form, Icon } from 'semantic-ui-react'
+import { useTranslation } from 'react-i18next'
 
 export default function UserLoginContainer() {
+	const { t } = useTranslation()
 	const router = useRouter()
 	const { useAlert } = useContext(AlertStateContext)
 	const { userState, userDispatch } = useContext(UserStateContext)
+	const { loadState, loadDispatch } = useContext(LoadingStateContext)
 	const [, setCookie] = useCookies(['userInfo'])
 	const [loginData, setLoginData] = useState({
 		email: '',
@@ -57,9 +60,13 @@ export default function UserLoginContainer() {
 	}
 
 	const handleClickLogin = () => {
+		loadDispatch({ type: 'ON_START', payload: true })
+
 		if (validationChk()) {
 			userLogin(loginData)
 				.then(res => {
+					loadDispatch({ type: 'ON_END', payload: false })
+
 					const resData = res.data
 
 					userDispatch({ type: 'ADD_USER', payload: resData.data })
@@ -73,6 +80,7 @@ export default function UserLoginContainer() {
 					})
 				})
 				.catch(err => {
+					loadDispatch({ type: 'ON_END', payload: false })
 					console.log({ err })
 
 					if (err.response && err.response.data) {
@@ -101,7 +109,7 @@ export default function UserLoginContainer() {
 									style={{ border: 'none', borderBottom: 'solid 1px #263343', width: 400 }}
 									type="text"
 									name="email"
-									placeholder="아이디를 입력해 주세요."
+									placeholder={t('login_holder_id')}
 									value={loginData.email}
 									onChange={changeUserData}
 								/>
@@ -118,7 +126,7 @@ export default function UserLoginContainer() {
 									style={{ border: 'none', borderBottom: 'solid 1px #263343', width: 400 }}
 									type="password"
 									name="password"
-									placeholder="비밀번호를 입력해 주세요."
+									placeholder={t('login_holder_passwd')}
 									value={loginData.password}
 									onChange={changeUserData}
 								/>
@@ -129,10 +137,17 @@ export default function UserLoginContainer() {
 								)}
 							</div>
 						</Form.Field>
-						<Button color="blue" size="huge" onClick={() => handleClickLogin()}>
-							<Icon name="key"></Icon>
-							로그인
-						</Button>
+						{!loadState.loading ? (
+							<Button color="blue" size="huge" onClick={() => handleClickLogin()}>
+								<Icon name="key"></Icon>
+								{t('login')}
+							</Button>
+						) : (
+							<Button color="blue" size="huge">
+								{t('wait')}
+								<Icon name="exclamation"></Icon>
+							</Button>
+						)}
 					</Form>
 				</div>
 			)}

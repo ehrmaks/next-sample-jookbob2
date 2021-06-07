@@ -3,7 +3,7 @@ import Router from '@comp/common/Router'
 import AlertModal from '@comp/common/AlertModal'
 import ConfirmModal from '@comp/common/ConfirmModal'
 import { useContext, useEffect } from 'react'
-import { AlertStateContext, UserStateContext } from '@/core/store/create'
+import { AlertStateContext, LoadingStateContext, UserStateContext } from '@/core/store/create'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { userInitialState } from '@/core/store/initialState'
@@ -16,6 +16,7 @@ export default function AppContainer({ Component }) {
 	const router = useRouter()
 	const { useAlert } = useContext(AlertStateContext)
 	const { userDispatch } = useContext(UserStateContext)
+	const { loadState } = useContext(LoadingStateContext)
 	const [cookies, , removeCookie] = useCookies(['userInfo'])
 
 	/*
@@ -109,7 +110,7 @@ export default function AppContainer({ Component }) {
 	}
 
 	return (
-		<div className="container">
+		<div className={loadState.loading ? 'container loading' : 'container'}>
 			<Router />
 			<Loading />
 			<AlertModal />

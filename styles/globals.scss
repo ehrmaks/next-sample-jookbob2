@@ -24,3 +24,10 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+.loading {
+  opacity: 0.5;
+  background-color: var(--backgound-color);
+  filter: brightness(80%);
+  pointer-events: none;
+}

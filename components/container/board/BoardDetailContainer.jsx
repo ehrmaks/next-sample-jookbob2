@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Card } from 'semantic-ui-react'
 import { boardDetail as boardDetailApi } from '@api/board/boardApi'
-import BoardModal from '@comp/child/board/BoardModal'
+import BoardModal from '@comp/children/board/BoardModal'
 import { useTranslation } from 'react-i18next'
 
 export default function BoardDetailContainer() {

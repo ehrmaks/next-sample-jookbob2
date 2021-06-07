@@ -26,22 +26,20 @@ class ConfirmModal extends Component {
 		const { size, open, title, msg } = this.context.confirmState
 		const { t } = this.props
 		return (
-			<>
-				<Modal size={size} open={open}>
-					{title && <Modal.Header>{title}</Modal.Header>}
-					<Modal.Content>
-						<p>{msg}</p>
-					</Modal.Content>
-					<Modal.Actions>
-						<Button id="confirmCancel" color="red" onClick={() => this.close()}>
-							{t('button_n')}
-						</Button>
-						<Button id="confirmSuccess" color="blue" onClick={() => this.close()}>
-							{t('button_y')}
-						</Button>
-					</Modal.Actions>
-				</Modal>
-			</>
+			<Modal size={size} open={open}>
+				{title && <Modal.Header>{title}</Modal.Header>}
+				<Modal.Content>
+					<p>{msg}</p>
+				</Modal.Content>
+				<Modal.Actions>
+					<Button id="confirmCancel" color="red" onClick={() => this.close()}>
+						{t('button_n')}
+					</Button>
+					<Button id="confirmSuccess" color="blue" onClick={() => this.close()}>
+						{t('button_y')}
+					</Button>
+				</Modal.Actions>
+			</Modal>
 		)
 	}
 }

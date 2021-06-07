@@ -8,7 +8,7 @@
     "debug": "next build --debug",
     "profile": "next build --profile",
     "start": "next start -p 4000",
-    "prod": "next build && next start"
+    "prod": "yarn build && yarn start"
   },
   "dependencies": {
     "axios": "^0.21.1",

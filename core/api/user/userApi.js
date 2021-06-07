@@ -4,7 +4,7 @@ import { authClient, noneAuthClient } from '@/core/config/axios'
  * 로그인
  * @param loginInfo(email, passwd)
  */
-export function userLogin(loginInfo) {
+export function postUserLogin(loginInfo) {
 	return noneAuthClient.post('/user/login', loginInfo)
 }
 
@@ -12,7 +12,7 @@ export function userLogin(loginInfo) {
  * 로그아웃
  * @param id
  */
-export function userLogout(id) {
+export function postUserLogout(id) {
 	return authClient.post(`/user/logout/${id}`)
 }
 
@@ -36,7 +36,7 @@ export function userLogout(id) {
     private String outDate;
     private String phone;)
 */
-export function userJoin(userInfo) {
+export function postUserJoin(userInfo) {
 	return noneAuthClient.post(`/user`, userInfo)
 }
 
@@ -44,6 +44,6 @@ export function userJoin(userInfo) {
  * 이메일 중복 체크
  * @param email
  */
-export function userDupCheck(email) {
+export function getUserDupCheck(email) {
 	return noneAuthClient.get(`/user/duplicate/${email}`)
 }

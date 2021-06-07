@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Card } from 'semantic-ui-react'
-import { boardDetail as boardDetailApi } from '@api/board/boardApi'
+import { getBoardDetail } from '@api/board/boardApi'
 import BoardModal from '@comp/children/board/BoardModal'
 import { useTranslation } from 'react-i18next'
 
@@ -13,13 +13,16 @@ export default function BoardDetailContainer() {
 
 	useEffect(() => {
 		if (router.query.id) {
-			boardDetailApi(router.query.id)
+			getBoardDetail(router.query.id)
 				.then(res => {
 					setMovie(res.data.data.movie)
 				})
 				.catch(err => {
 					console.log(err)
 				})
+		}
+		return () => {
+			setMovie({})
 		}
 	}, [router.query.id])
 

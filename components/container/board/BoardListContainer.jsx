@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '@styles/board/board-list.module.scss'
 import { Table } from 'semantic-ui-react'
-import { boardList as boardListApi } from '@api/board/boardApi'
+import { getBoardList } from '@api/board/boardApi'
 import { LoadingStateContext } from '@/core/store/create'
 import { useTranslation } from 'react-i18next'
 
@@ -14,14 +14,13 @@ export default function BoardListContainer() {
 
 	useEffect(() => {
 		// list api 호출
-		boardListApi()
+		getBoardList()
 			.then(res => {
 				setBoardList(res.data.data.movies)
 			})
 			.catch(err => {
 				console.log(err)
 			})
-		// clean up
 		return () => {
 			setBoardList([])
 		}

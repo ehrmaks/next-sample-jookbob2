@@ -3,7 +3,7 @@ import { AlertStateContext, LoadingStateContext, UserStateContext } from '@/core
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import styles from '@styles/user/user-login.module.scss'
-import { userLogin } from '@/core/api/user/userApi'
+import { postUserLogin } from '@/core/api/user/userApi'
 import { Button, Form, Icon } from 'semantic-ui-react'
 import { useTranslation } from 'react-i18next'
 
@@ -63,7 +63,7 @@ export default function UserLoginContainer() {
 		loadDispatch({ type: 'ON_START', payload: true })
 
 		if (validationChk()) {
-			userLogin(loginData)
+			postUserLogin(loginData)
 				.then(res => {
 					loadDispatch({ type: 'ON_END', payload: false })
 

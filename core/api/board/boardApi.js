@@ -1,9 +1,9 @@
 import { defaultClient } from '@/core/config/axios'
 
-export function boardList() {
+export function getBoardList() {
 	return defaultClient.get('/list_movies.json')
 }
 
-export function boardDetail(movieId) {
+export function getBoardDetail(movieId) {
 	return defaultClient.get(`/movie_details.json?movie_id=${movieId}`)
 }

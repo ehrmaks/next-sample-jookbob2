@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react'
-import { LoadingStateContext } from '@store/create'
-import { loadingInitialState } from '@store/initialState'
-import { loadingReducer } from '@store/reducer'
+import { LoadingStateContext } from '@store/common/create'
+import { loadingInitialState } from '@store/common/initialState'
+import { loadingReducer } from '@store/common/reducer'
 import { useRouter } from 'next/router'
 
 export function LoadingProvider({ children }) {

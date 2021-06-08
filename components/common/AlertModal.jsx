@@ -1,4 +1,4 @@
-import { AlertStateContext } from '@store/create'
+import { AlertStateContext } from '@/core/store/common/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import { withTranslation } from 'react-i18next'

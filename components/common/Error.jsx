@@ -1,11 +1,10 @@
-import React from 'react'
 import { Icon } from 'semantic-ui-react'
 
-export default function ErrorPage() {
+export default function Error() {
 	return (
 		<div style={{ padding: '200px 0', textAlign: 'center', fontSize: 30 }}>
 			<Icon name="warning circle" color="orange"></Icon>
-			404: 페이지를 찾을 수 없습니다.
+			오류가 발생 했습니다.
 		</div>
 	)
 }

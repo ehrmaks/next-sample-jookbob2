@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
-import { AlertStateContext } from '@store/create'
-import { alertInitialState } from '@store/initialState'
-import { alertReducer } from '@store/reducer'
+import { AlertStateContext } from '@store/common/create'
+import { alertInitialState } from '@store/common/initialState'
+import { alertReducer } from '@store/common/reducer'
 
 export function AlertProvider({ children }) {
 	const [alertState, alertDispatch] = useReducer(alertReducer, alertInitialState)

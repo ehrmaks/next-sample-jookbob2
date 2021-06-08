@@ -1,22 +1,20 @@
-import Loading from '@comp/common/Loading'
 import Router from '@comp/common/Router'
 import AlertModal from '@comp/common/AlertModal'
 import ConfirmModal from '@comp/common/ConfirmModal'
 import { useContext, useEffect } from 'react'
-import { AlertStateContext, LoadingStateContext, UserStateContext } from '@/core/store/create'
+import { AlertStateContext, UserStateContext } from '@/core/store/common/create'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { userInitialState } from '@/core/store/initialState'
+import { userInitialState } from '@store/common/initialState'
 import jwtDecode from 'jwt-decode'
 
 // 권한이 필요한 asPath List
-const authPathList = ['/member/memberlist']
+const authPathList = []
 
 export default function AppContainer({ Component }) {
 	const router = useRouter()
 	const { useAlert } = useContext(AlertStateContext)
 	const { userDispatch } = useContext(UserStateContext)
-	const { loadState } = useContext(LoadingStateContext)
 	const [cookies, , removeCookie] = useCookies(['userInfo'])
 
 	/*
@@ -110,9 +108,8 @@ export default function AppContainer({ Component }) {
 	}
 
 	return (
-		<div className={loadState.loading ? 'container loading' : 'container'}>
+		<div className={'container'}>
 			<Router />
-			<Loading />
 			<AlertModal />
 			<ConfirmModal />
 			<Component.Page {...Component.pageProps} />

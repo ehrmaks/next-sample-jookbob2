@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react'
-import { LangStateContext } from '@store/create'
-import { langInitialState } from '@store/initialState'
-import { langReducer } from '@store/reducer'
+import { LangStateContext } from '@store/common/create'
+import { langInitialState } from '@store/common/initialState'
+import { langReducer } from '@store/common/reducer'
 import { getLocale, i18nChangeLanguage } from '@lang/i18n'
 
 export function LangProvider({ children }) {

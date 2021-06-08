@@ -3,14 +3,10 @@ import axios from 'axios'
 function setInterceptors(instance) {
 	instance.interceptors.request.use(
 		config => {
-			// 로딩바 실행
-			window.loading.onStart()
 			return config
 		},
 		error => {
-			console.error('request error : ', { error })
-			// 로딩바 종료
-			if (error.config) window.loading.onEnd()
+			console.error('Request error : ', { error })
 
 			window.setAlert.show({ title: 'Request error', msg: error.message })
 
@@ -19,15 +15,10 @@ function setInterceptors(instance) {
 	)
 	instance.interceptors.response.use(
 		response => {
-			// 로딩바 종료
-			if (response) window.loading.onEnd()
-
 			return response
 		},
 		error => {
-			console.error('response error : ', { error })
-			// 로딩바 종료
-			window.loading.onEnd()
+			console.error('Response error : ', { error })
 
 			if (error.response) {
 				window.setAlert.show({

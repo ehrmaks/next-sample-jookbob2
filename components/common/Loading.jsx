@@ -1,35 +1,12 @@
-import { LoadingStateContext } from '@store/create'
-import React, { Component } from 'react'
+import React from 'react'
 import { Loader } from 'semantic-ui-react'
 
-class Loading extends Component {
-	static contextType = LoadingStateContext
-
-	componentDidMount() {
-		window.loading = this
-	}
-
-	onStart = () => {
-		this.context.loadDispatch({ type: 'ON_START', payload: true })
-	}
-
-	onEnd = () => {
-		this.context.loadDispatch({ type: 'ON_END', payload: false })
-	}
-
-	render() {
-		return (
-			<>
-				{this.context.loadState.loading && (
-					<div style={{ position: 'absolute' }}>
-						<Loader active inline="centered">
-							Loading
-						</Loader>
-					</div>
-				)}
-			</>
-		)
-	}
+export default function Loading() {
+	return (
+		<div style={{ position: 'absolute' }}>
+			<Loader active inline="centered">
+				Loading
+			</Loader>
+		</div>
+	)
 }
-
-export default Loading

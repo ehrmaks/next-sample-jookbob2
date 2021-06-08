@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
-import { ConfirmStateContext } from '@store/create'
-import { confirmInitialState } from '@store/initialState'
-import { confirmReducer } from '@store/reducer'
+import { ConfirmStateContext } from '@store/common/create'
+import { confirmInitialState } from '@store/common/initialState'
+import { confirmReducer } from '@store/common/reducer'
 
 export function ConfirmProvider({ children }) {
 	const [confirmState, confirmDispatch] = useReducer(confirmReducer, confirmInitialState)

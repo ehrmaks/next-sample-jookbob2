@@ -1,15 +1,17 @@
 import React, { useContext } from 'react'
 import Link from 'next/link'
-import { LangStateContext, UserStateContext } from '@store/create'
+import { LangStateContext, UserStateContext } from '@/core/store/common/create'
 import { i18nChangeLanguage } from '@lang/i18n'
 import { Dropdown } from 'semantic-ui-react'
 import { langOptions } from '@/lang/options'
 import { useTranslation } from 'react-i18next'
+import { useCookies } from 'react-cookie'
 
 export default function Header() {
 	const { t } = useTranslation()
-	const { userState } = useContext(UserStateContext)
+	const { userState, userDispatch } = useContext(UserStateContext)
 	const { langState, langDispatch } = useContext(LangStateContext)
+	const [cookies, , removeCookie] = useCookies(['userInfo'])
 
 	const handleClickToggleMenu = () => {
 		const menu = document.querySelector('.navbar__menu')
@@ -25,6 +27,20 @@ export default function Header() {
 			payload: value,
 		})
 		i18nChangeLanguage(value)
+	}
+
+	const handleClickSignOut = () => {
+		if (cookies.userInfo) {
+			userDispatch({
+				type: 'SET_INIT_USER',
+			})
+
+			// 쿠키를 지움
+			removeCookie('userInfo', {
+				domain: location.href.includes('localhost') ? 'localhost' : process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
+				path: '/',
+			})
+		}
 	}
 
 	return (
@@ -66,7 +82,9 @@ export default function Header() {
 
 				<ul className="navbar__icons">
 					{userState.accessToken ? (
-						<li>signout</li>
+						<li onClick={handleClickSignOut}>
+							<a>로그아웃</a>
+						</li>
 					) : (
 						<li className="navbar__border__right">
 							<Link href="/user/user-login">

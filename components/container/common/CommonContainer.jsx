@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AlertStateContext, ConfirmStateContext } from '@/core/store/create'
+import { AlertStateContext, ConfirmStateContext } from '@/core/store/common/create'
 import { Button } from 'semantic-ui-react'
 import { useTranslation } from 'react-i18next'
 

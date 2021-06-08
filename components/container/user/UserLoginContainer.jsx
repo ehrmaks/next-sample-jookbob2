@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AlertStateContext, LoadingStateContext, UserStateContext } from '@/core/store/create'
+import { UserStateContext } from '@/core/store/common/create'
 import { useRouter } from 'next/router'
-import { useCookies } from 'react-cookie'
 import styles from '@styles/user/user-login.module.scss'
-import { postUserLogin } from '@/core/api/user/userApi'
 import { Button, Form, Icon } from 'semantic-ui-react'
 import { useTranslation } from 'react-i18next'
+import { useUserContext } from '@/core/store/api/providers/UserApiProvider'
+import { POST_USER_LOGIN } from '@/core/store/api/create/userCreate'
+import Loading from '@/components/common/Loading'
 
 export default function UserLoginContainer() {
 	const { t } = useTranslation()
 	const router = useRouter()
-	const { useAlert } = useContext(AlertStateContext)
-	const { userState, userDispatch } = useContext(UserStateContext)
-	const { loadState, loadDispatch } = useContext(LoadingStateContext)
-	const [, setCookie] = useCookies(['userInfo'])
+	const { userState } = useContext(UserStateContext)
+	const { state, dispatch } = useUserContext()
+	const { loading } = state.userLogin
 	const [loginData, setLoginData] = useState({
 		email: '',
-		password: '',
+		passwd: '',
 	})
 	const [msgData, setMsgData] = useState({
 		message1: '',
@@ -27,7 +27,7 @@ export default function UserLoginContainer() {
 		if (userState.accessToken) {
 			router.push('/')
 		}
-	}, [])
+	}, [userState.accessToken])
 
 	const changeUserData = e => {
 		setLoginData({
@@ -49,7 +49,7 @@ export default function UserLoginContainer() {
 			})
 			return false
 		}
-		if (!loginData.password) {
+		if (!loginData.passwd) {
 			setMsgData({
 				...msgData,
 				message2: '비밀번호를 입력해 주세요.',
@@ -60,96 +60,66 @@ export default function UserLoginContainer() {
 	}
 
 	const handleClickLogin = () => {
-		loadDispatch({ type: 'ON_START', payload: true })
-
-		if (validationChk()) {
-			postUserLogin(loginData)
-				.then(res => {
-					loadDispatch({ type: 'ON_END', payload: false })
-
-					const resData = res.data
-
-					userDispatch({ type: 'ADD_USER', payload: resData.data })
-
-					setCookie('userInfo', resData.data, {
-						// expires: new Date(new Date().getTime() + 3600000),
-						domain: location.href.includes('localhost')
-							? 'localhost'
-							: process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
-						path: '/',
-					})
-				})
-				.catch(err => {
-					loadDispatch({ type: 'ON_END', payload: false })
-					console.log({ err })
-
-					if (err.response && err.response.data) {
-						const errData = err.response.data
-						if (errData.code === 'ST003') {
-							setMsgData({
-								...msgData,
-								message1: errData.message,
-							})
-						}
-					} else useAlert({ title: '서버 오류 알림', msg: err.message })
-				})
-		}
+		if (validationChk()) POST_USER_LOGIN(dispatch, loginData)
 	}
 	return (
 		<>
 			{!userState.accessToken && (
-				<div className={styles.wrap}>
-					<div className={styles.login_header}>
-						<img src="/static/images/header_logo.svg" alt="logo" width="200px" />
+				<>
+					{loading && <Loading />}
+					<div className={styles.wrap}>
+						<div className={styles.login_header}>
+							<img src="/static/images/header_logo.svg" alt="logo" width="200px" />
+						</div>
+						<Form>
+							<Form.Field>
+								<div className={styles.login_div}>
+									<input
+										style={{ border: 'none', borderBottom: 'solid 1px #263343', width: 400 }}
+										type="text"
+										name="email"
+										placeholder={t('login_holder_id')}
+										value={loginData.email}
+										onChange={changeUserData}
+									/>
+									{msgData.message1 && (
+										<div className={styles.login_status}>
+											<p>{msgData.message1}</p>
+										</div>
+									)}
+								</div>
+							</Form.Field>
+							<Form.Field>
+								<div className={styles.login_div}>
+									<input
+										style={{ border: 'none', borderBottom: 'solid 1px #263343', width: 400 }}
+										type="password"
+										name="passwd"
+										placeholder={t('login_holder_passwd')}
+										value={loginData.passwd}
+										onChange={changeUserData}
+									/>
+									{msgData.message2 && (
+										<div className={styles.login_status}>
+											<p>{msgData.message2}</p>
+										</div>
+									)}
+								</div>
+							</Form.Field>
+							{!loading ? (
+								<Button color="blue" size="huge" onClick={() => handleClickLogin()}>
+									<Icon name="key"></Icon>
+									{t('login')}
+								</Button>
+							) : (
+								<Button color="blue" size="huge">
+									{t('wait')}
+									<Icon name="exclamation"></Icon>
+								</Button>
+							)}
+						</Form>
 					</div>
-					<Form>
-						<Form.Field>
-							<div className={styles.login_div}>
-								<input
-									style={{ border: 'none', borderBottom: 'solid 1px #263343', width: 400 }}
-									type="text"
-									name="email"
-									placeholder={t('login_holder_id')}
-									value={loginData.email}
-									onChange={changeUserData}
-								/>
-								{msgData.message1 && (
-									<div className={styles.login_status}>
-										<p>{msgData.message1}</p>
-									</div>
-								)}
-							</div>
-						</Form.Field>
-						<Form.Field>
-							<div className={styles.login_div}>
-								<input
-									style={{ border: 'none', borderBottom: 'solid 1px #263343', width: 400 }}
-									type="password"
-									name="password"
-									placeholder={t('login_holder_passwd')}
-									value={loginData.password}
-									onChange={changeUserData}
-								/>
-								{msgData.message2 && (
-									<div className={styles.login_status}>
-										<p>{msgData.message2}</p>
-									</div>
-								)}
-							</div>
-						</Form.Field>
-						{!loadState.loading ? (
-							<Button color="blue" size="huge" onClick={() => handleClickLogin()}>
-								<Icon name="key"></Icon>
-								{t('login')}
-							</Button>
-						) : (
-							<Button color="blue" size="huge">
-								{t('wait')}
-								<Icon name="exclamation"></Icon>
-							</Button>
-						)}
-					</Form>
-				</div>
+				</>
 			)}
 		</>
 	)

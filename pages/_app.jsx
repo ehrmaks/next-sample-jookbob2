@@ -19,5 +19,5 @@ export default function MyApp({ Component, pageProps }) {
 }
 
 MyApp.propTypes = {
-	Component: PropTypes.func,
+	Component: PropTypes.elementType.isRequired,
 }

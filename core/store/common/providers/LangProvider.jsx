@@ -3,6 +3,9 @@ import { LangStateContext } from '@store/common/create'
 import { langInitialState } from '@store/common/initialState'
 import { langReducer } from '@store/common/reducer'
 import { getLocale, i18nChangeLanguage } from '@lang/i18n'
+import { constants } from '@store/common/constants'
+
+const { SET_LANG } = constants
 
 export function LangProvider({ children }) {
 	const [langState, langDispatch] = useReducer(langReducer, langInitialState)
@@ -12,7 +15,7 @@ export function LangProvider({ children }) {
 	 */
 	useEffect(() => {
 		langDispatch({
-			type: 'SET_LANG',
+			type: SET_LANG,
 			payload: getLocale(),
 		})
 

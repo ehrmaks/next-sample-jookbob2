@@ -4,11 +4,14 @@ import { UserContext } from '../create/userCreate'
 import { useContext, useEffect, useReducer } from 'react'
 import { useCookies } from 'react-cookie'
 import { AlertStateContext, UserStateContext } from '../../common/create'
+import { constants } from '@store/common/constants'
 
 // UsersContext 에서 사용 할 기본 상태
 const initialState = {
 	userLogin: initialAsyncState,
 }
+
+const { ADD_USER } = constants
 
 export function UserApiProvider({ children }) {
 	const [state, dispatch] = useReducer(userReducer, initialState)
@@ -22,7 +25,7 @@ export function UserApiProvider({ children }) {
 	useEffect(() => {
 		if (state.userLogin.data) {
 			const data = state.userLogin.data
-			userDispatch({ type: 'ADD_USER', payload: data })
+			userDispatch({ type: ADD_USER, payload: data })
 
 			setCookie('userInfo', data, {
 				expires: new Date(new Date().getTime() + 3600000),

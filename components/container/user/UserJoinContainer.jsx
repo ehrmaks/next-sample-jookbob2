@@ -7,6 +7,7 @@ export default function UserJoinContainer() {
 	const router = useRouter()
 
 	useEffect(() => {
+		console.log('userState ==> ', userState)
 		if (userState.accessToken) {
 			router.push('/')
 		}

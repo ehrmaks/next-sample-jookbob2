@@ -19,6 +19,7 @@ export default function BoardListContainer() {
 	}, [])
 
 	function fetchData() {
+		console.log('3')
 		GET_BOARD_LIST(dispatch)
 	}
 

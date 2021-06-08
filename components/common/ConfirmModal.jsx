@@ -2,6 +2,9 @@ import { ConfirmStateContext } from '@/core/store/common/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import { withTranslation } from 'react-i18next'
+import { constants } from '@store/common/constants'
+
+const { SHOW_CONFIRM, CLOSE_CONFIRM } = constants
 
 class ConfirmModal extends Component {
 	static contextType = ConfirmStateContext
@@ -12,14 +15,14 @@ class ConfirmModal extends Component {
 
 	show = (title, msg) => {
 		this.context.confirmDispatch({
-			type: 'SHOW_CONFIRM',
+			type: SHOW_CONFIRM,
 			title,
 			msg,
 		})
 	}
 
 	close = () => {
-		this.context.confirmDispatch({ type: 'CLOSE_CONFIRM' })
+		this.context.confirmDispatch({ type: CLOSE_CONFIRM })
 	}
 
 	render() {

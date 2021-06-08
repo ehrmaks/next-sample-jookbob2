@@ -1,5 +1,4 @@
 export { LangProvider } from './LangProvider'
 export { AlertProvider } from './AlertProvider'
 export { ConfirmProvider } from './ConfirmProvider'
-export { LoadingProvider } from './LoadingProvider'
 export { UserProvider } from './UserProvider'

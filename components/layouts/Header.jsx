@@ -6,6 +6,9 @@ import { Dropdown } from 'semantic-ui-react'
 import { langOptions } from '@/lang/options'
 import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
+import { constants } from '@store/common/constants'
+
+const { SET_LANG, SET_INIT_USER } = constants
 
 export default function Header() {
 	const { t } = useTranslation()
@@ -23,7 +26,7 @@ export default function Header() {
 
 	const handleChangeLang = value => {
 		langDispatch({
-			type: 'SET_LANG',
+			type: SET_LANG,
 			payload: value,
 		})
 		i18nChangeLanguage(value)
@@ -32,7 +35,7 @@ export default function Header() {
 	const handleClickSignOut = () => {
 		if (cookies.userInfo) {
 			userDispatch({
-				type: 'SET_INIT_USER',
+				type: SET_INIT_USER,
 			})
 
 			// 쿠키를 지움

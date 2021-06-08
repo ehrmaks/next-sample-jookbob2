@@ -2,6 +2,9 @@ import { AlertStateContext } from '@/core/store/common/create'
 import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import { withTranslation } from 'react-i18next'
+import { constants } from '@store/common/constants'
+
+const { SHOW_ALERT, CLOSE_ALERT } = constants
 
 class AlertModal extends Component {
 	static contextType = AlertStateContext
@@ -12,14 +15,14 @@ class AlertModal extends Component {
 
 	show = ({ title, msg }) => {
 		this.context.alertDispatch({
-			type: 'SHOW_ALERT',
+			type: SHOW_ALERT,
 			title,
 			msg,
 		})
 	}
 
 	close = () => {
-		this.context.alertDispatch({ type: 'CLOSE_ALERT' })
+		this.context.alertDispatch({ type: CLOSE_ALERT })
 	}
 
 	render() {

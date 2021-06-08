@@ -6,17 +6,18 @@ import Footer from '@comp/layouts/Footer'
 import Header from '@comp/layouts/Header'
 import AppContainer from '@comp/container/app/AppContainer'
 import Store from '@store/index'
+import PropTypes from 'prop-types'
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
 	return (
-		<>
-			<Store>
-				<Header />
-				<AppContainer Component={{ Page: Component, pageProps }} />
-				<Footer />
-			</Store>
-		</>
+		<Store>
+			<Header />
+			<AppContainer Component={{ Page: Component, pageProps }} />
+			<Footer />
+		</Store>
 	)
 }
 
-export default MyApp
+MyApp.propTypes = {
+	Component: PropTypes.func,
+}

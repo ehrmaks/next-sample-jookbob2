@@ -4,6 +4,8 @@ import { createAsyncHandler } from '../utils/createAsyncHandler'
 import { getBoardDetail, getBoardList } from '@api/board/boardApi'
 import { boardConstants } from '../costants/board/index'
 
+console.log('1 board create')
+
 // 컨텍스트를 생성함
 export const BoardContext = createContext(null)
 

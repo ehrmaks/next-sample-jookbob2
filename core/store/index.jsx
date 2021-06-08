@@ -1,20 +1,11 @@
 import React from 'react'
-import { AlertProvider, ConfirmProvider, LangProvider, LoadingProvider, UserProvider } from '@store/common/providers'
-import { BoardApiProvider, UserApiProvider } from '@store/api/providers'
+import { CommonProvider } from './common'
+import { ApiProvider } from './api'
+
 export default function Store({ children }) {
 	return (
-		<LangProvider>
-			<AlertProvider>
-				<ConfirmProvider>
-					<LoadingProvider>
-						<UserProvider>
-							<BoardApiProvider>
-								<UserApiProvider>{children}</UserApiProvider>
-							</BoardApiProvider>
-						</UserProvider>
-					</LoadingProvider>
-				</ConfirmProvider>
-			</AlertProvider>
-		</LangProvider>
+		<CommonProvider>
+			<ApiProvider>{children}</ApiProvider>
+		</CommonProvider>
 	)
 }

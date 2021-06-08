@@ -14,11 +14,6 @@ export const confirmInitialState = {
 	msg: '',
 }
 
-// 로딩 초기 상태 값
-export const loadingInitialState = {
-	loading: false,
-}
-
 // 유저 정보 초기 상태 값
 export const userInitialState = {
 	accessToken: '',

@@ -38,6 +38,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "i18next": "^20.3.1",
     "prettier": "^2.2.1",
+    "prop-types": "^15.7.2",
     "react-i18next": "^11.10.0"
   },
   "eslintConfig": {

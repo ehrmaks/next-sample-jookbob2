@@ -4,6 +4,8 @@ import { createAsyncHandler } from '../utils/createAsyncHandler'
 import { postUserLogin } from '@api/user/userApi'
 import { userConstants } from '../costants/user'
 
+console.log('1 user create')
+
 // 컨텍스트를 생성함
 export const UserContext = createContext(null)
 

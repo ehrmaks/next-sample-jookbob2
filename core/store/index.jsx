@@ -1,4 +1,3 @@
-import React from 'react'
 import { CommonProvider } from './common'
 import { ApiProvider } from './api'
 

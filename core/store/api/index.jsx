@@ -1,14 +1,5 @@
-import React from 'react'
 import { apiProviderArray } from './providers'
-
-const Provider = ({ contexts, children }) =>
-	contexts.reduce(
-		(prev, context) =>
-			React.createElement(context, {
-				children: prev,
-			}),
-		children,
-	)
+import { Provider } from '@store/config/providerCreate'
 
 export function ApiProvider({ children }) {
 	return <Provider contexts={apiProviderArray}>{children}</Provider>

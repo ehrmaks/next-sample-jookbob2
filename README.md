@@ -5,7 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-yarn dev
+1. yarn
+2. yarn dev (Development 모드) 또는 yarn prod (Production 모드)
 ```
 
 Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.

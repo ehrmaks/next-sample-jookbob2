@@ -1,6 +1,5 @@
 import React from 'react'
-
-import { AlertProvider, ConfirmProvider, LangProvider, UserProvider } from './providers'
+import { commonProviderArray } from './providers'
 
 const Provider = ({ contexts, children }) =>
 	contexts.reduce(
@@ -12,14 +11,5 @@ const Provider = ({ contexts, children }) =>
 	)
 
 export function CommonProvider({ children }) {
-	return (
-		// <LangProvider>
-		// 	<AlertProvider>
-		// 		<ConfirmProvider>
-		// 			<UserProvider>{children}</UserProvider>
-		// 		</ConfirmProvider>
-		// 	</AlertProvider>
-		// </LangProvider>
-		<Provider contexts={[AlertProvider, ConfirmProvider, LangProvider, UserProvider]}>{children}</Provider>
-	)
+	return <Provider contexts={commonProviderArray}>{children}</Provider>
 }

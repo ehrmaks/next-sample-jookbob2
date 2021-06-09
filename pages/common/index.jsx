@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from '@comp/common/Meta'
-import CommonContainer from '@comp/container/common/CommonContainer'
+import CommonContainer from '@container/common/CommonContainer'
 
 export default function Common() {
 	return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from '@comp/common/Meta'
-import UserLoginContainer from '@comp/container/user/UserLoginContainer'
+import UserLoginContainer from '@container/user/UserLoginContainer'
 
 export default function UserLogin() {
 	return (

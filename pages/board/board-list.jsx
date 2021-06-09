@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from '@comp/common/Meta'
-import BoardListContainer from '@comp/container/board/BoardListContainer'
+import BoardListContainer from '@container/board/BoardListContainer'
 import { useTranslation } from 'react-i18next'
 
 export default function BoardList() {

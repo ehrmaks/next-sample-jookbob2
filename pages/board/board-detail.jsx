@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from '@comp/common/Meta'
-import BoardDetailContainer from '@comp/container/board/BoardDetailContainer'
+import BoardDetailContainer from '@container/board/BoardDetailContainer'
 
 export default function BoardDetail() {
 	return (

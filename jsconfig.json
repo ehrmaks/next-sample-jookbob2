@@ -22,6 +22,7 @@
         "@": ["./"],
         "@/*": ["./*"],
         "@comp/*": ["./components/*"],
+        "@container/*": ["./containers/*"],
         "@api/*": ["./core/api/*"],
         "@store/*": ["./core/store/*"],
         "@styles/*": ["./styles/*"],

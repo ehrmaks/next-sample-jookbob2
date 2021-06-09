@@ -5,8 +5,8 @@ import { Button, Table } from 'semantic-ui-react'
 import { useTranslation } from 'react-i18next'
 import { useBoardContext } from '@store/api/providers/BoardApiProvider'
 import { GET_BOARD_LIST } from '@store/api/create/boardCreate'
-import Loading from '@/components/common/Loading'
-import Error from '@/components/common/Error'
+import Loading from '@comp/common/Loading'
+import Error from '@comp/common/Error'
 
 export default function BoardListContainer() {
 	const { t } = useTranslation()

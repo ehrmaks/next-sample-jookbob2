@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from '@comp/common/Meta'
-import UserJoinContainer from '@comp/container/user/UserJoinContainer'
+import UserJoinContainer from '@container/user/UserJoinContainer'
 
 export default function MemberJoin() {
 	return (

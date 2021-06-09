@@ -1,6 +1,6 @@
 import { commonProviderArray } from './providers'
-import { Provider } from '@store/config/providerCreate'
+import { ProviderCreate } from '@store/config/ProviderCreate'
 
 export function CommonProvider({ children }) {
-	return <Provider contexts={commonProviderArray}>{children}</Provider>
+	return <ProviderCreate contexts={commonProviderArray}>{children}</ProviderCreate>
 }

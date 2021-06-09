@@ -1,6 +1,6 @@
 import { apiProviderArray } from './providers'
-import { Provider } from '@store/config/providerCreate'
+import { ProviderCreate } from '@store/config/ProviderCreate'
 
 export function ApiProvider({ children }) {
-	return <Provider contexts={apiProviderArray}>{children}</Provider>
+	return <ProviderCreate contexts={apiProviderArray}>{children}</ProviderCreate>
 }

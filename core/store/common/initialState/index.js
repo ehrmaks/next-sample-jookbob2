@@ -18,10 +18,8 @@ export const confirmInitialState = {
 export const userInitialState = {
 	accessToken: '',
 	id: 0,
-	loginId: '',
-	userNm: '',
+	name: '',
 	email: '',
-	userId: '',
 }
 
 // 언어 상태

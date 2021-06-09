@@ -5,6 +5,7 @@ import { useContext, useEffect, useReducer } from 'react'
 import { useCookies } from 'react-cookie'
 import { AlertStateContext, UserStateContext } from '../../common/create'
 import { constants } from '@store/common/constants'
+import { setSession } from '@/core/config/session'
 
 // UsersContext 에서 사용 할 기본 상태
 const initialState = {
@@ -23,6 +24,7 @@ export function UserApiProvider({ children }) {
 	 * 로그인 API State에 따른 쿠키 셋팅 및 에러 처리
 	 */
 	useEffect(() => {
+		console.log('userApiProvider')
 		if (state.userLogin.data) {
 			const data = state.userLogin.data
 			userDispatch({ type: ADD_USER, payload: data })
@@ -31,7 +33,10 @@ export function UserApiProvider({ children }) {
 				expires: new Date(new Date().getTime() + 3600000),
 				domain: location.href.includes('localhost') ? 'localhost' : process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
 				path: '/',
+				maxAge: 0,
 			})
+
+			setSession('userInfo', data)
 		}
 		if (state.userLogin.error) {
 			const error = state.userLogin.error
@@ -39,11 +44,11 @@ export function UserApiProvider({ children }) {
 				if (error.response && error.response.data) {
 					const errData = error.response.data
 					if (errData.code === 'ST003') {
-						useAlert({ title: '서버 오류 알림', msg: errData.message })
+						useAlert({ title: 'Response error', msg: errData.message })
 					}
-				} else useAlert({ title: '서버 오류 알림', msg: error.message })
+				} else useAlert({ title: 'Response error', msg: error.message })
 			} else {
-				useAlert({ title: 'Error', msg: 'response undefined' })
+				useAlert({ title: 'Response error', msg: 'response undefined' })
 			}
 		}
 	}, [state.userLogin])

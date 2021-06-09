@@ -7,6 +7,8 @@ import { langOptions } from '@/lang/options'
 import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
 import { constants } from '@store/common/constants'
+import { getSession, removeSession } from '@/core/config/session'
+import { userInitialState } from '@/core/store/common/initialState'
 
 const { SET_LANG, SET_INIT_USER } = constants
 
@@ -33,9 +35,10 @@ export default function Header() {
 	}
 
 	const handleClickSignOut = () => {
-		if (cookies.userInfo) {
+		if (cookies.userInfo || getSession('userInfo')) {
 			userDispatch({
 				type: SET_INIT_USER,
+				payload: userInitialState,
 			})
 
 			// 쿠키를 지움
@@ -43,6 +46,8 @@ export default function Header() {
 				domain: location.href.includes('localhost') ? 'localhost' : process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
 				path: '/',
 			})
+
+			removeSession('userInfo')
 		}
 	}
 
@@ -77,17 +82,22 @@ export default function Header() {
 						</li>
 					</ul>
 				</div>
-				{userState.accessToken && (
-					<div className="navbar__username">
-						<span>{userState.userNm}님</span>
-					</div>
-				)}
+
+				{/* {userState.accessToken && (
+				)} */}
 
 				<ul className="navbar__icons">
 					{userState.accessToken ? (
-						<li onClick={handleClickSignOut}>
-							<a>로그아웃</a>
-						</li>
+						<>
+							<li className="navbar__border__right">
+								<div>
+									<span>{userState.name}님</span>
+								</div>
+							</li>
+							<li onClick={handleClickSignOut}>
+								<a>로그아웃</a>
+							</li>
+						</>
 					) : (
 						<li className="navbar__border__right">
 							<Link href="/user/user-login">

@@ -1,13 +1,26 @@
 import axios from 'axios'
+import { getSession } from './session'
+import { validateTimeAccessToken } from './validToken'
 
 function setInterceptors(instance) {
 	instance.interceptors.request.use(
 		config => {
+			const userInfo = getSession('userInfo')
+			if (!userInfo) {
+				window.setAlert.show({ title: 'Request error', msg: 'User information does not exist' })
+				window.router.push('/user/user-login')
+
+				return false
+			}
+
+			if (validateTimeAccessToken(userInfo.accessToken)) {
+				config.headers['Authorization'] = userInfo.accessToken
+				config.headers['Content-Type'] = 'application/json'
+			}
+
 			return config
 		},
 		error => {
-			console.error('Request error : ', { error })
-
 			window.setAlert.show({ title: 'Request error', msg: error.message })
 
 			return Promise.reject(error.response)
@@ -18,8 +31,6 @@ function setInterceptors(instance) {
 			return response
 		},
 		error => {
-			console.error('Response error : ', { error })
-
 			if (error.response) {
 				window.setAlert.show({
 					title: 'Response server error',
@@ -30,7 +41,7 @@ function setInterceptors(instance) {
 					window.router.push('/')
 				}
 			} else {
-				window.setAlert.show({ title: 'Response undefined', msg: error.message })
+				window.setAlert.show({ title: 'Response error', msg: error.message })
 			}
 
 			return Promise.reject(error.response)
@@ -50,6 +61,6 @@ function noneAuthCreate(url, options) {
 	return instance
 }
 
-export const defaultClient = authCreate(process.env.NEXT_PUBLIC_API_URL)
+export const defaultClient = noneAuthCreate(process.env.NEXT_PUBLIC_API_URL)
 export const authClient = authCreate(process.env.NEXT_PUBLIC_LOCAL_API_URL)
 export const noneAuthClient = noneAuthCreate(process.env.NEXT_PUBLIC_LOCAL_API_URL)

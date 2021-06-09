@@ -5,9 +5,10 @@ import { useCookies } from 'react-cookie'
 import { userInitialState } from '@store/common/initialState'
 import jwtDecode from 'jwt-decode'
 import { constants } from '@store/common/constants'
+import { getSession, removeSession } from '@/core/config/session'
 
 // 권한이 필요한 asPath List
-const authPathList = []
+const authPathList = ['/board/board-list']
 
 const { ADD_USER, SET_INIT_USER } = constants
 
@@ -29,12 +30,12 @@ export default function Cookie() {
 	 */
 	useEffect(() => {
 		// 로그인 상태라면 쿠키의 정보를 스토어에 저장
-		if (cookies.userInfo) {
+		if (cookies.userInfo || getSession('userInfo')) {
 			// 최초에 토큰이 존재한다면 토큰 유효성 검사 후 유저 정보 저장
 			if (validateAccessToken())
 				userDispatch({
 					type: ADD_USER,
-					payload: cookies.userInfo,
+					payload: cookies.userInfo || getSession('userInfo'),
 				})
 			else
 				userDispatch({
@@ -48,7 +49,7 @@ export default function Cookie() {
 				type: SET_INIT_USER,
 				payload: userInitialState,
 			})
-	}, [])
+	}, [router.asPath])
 
 	/*
 	 * 토큰 검증 하는 함수
@@ -56,14 +57,14 @@ export default function Cookie() {
 	 */
 	function validateAccessToken() {
 		let accessToken
-
 		if (cookies.userInfo) accessToken = cookies.userInfo.accessToken
+		if (getSession('userInfo')) accessToken = getSession('userInfo').accessToken
 
 		if (!accessToken) {
-			useAlert({ msg: '권한이 없습니다. 로그인해 주세요.' }).then(() => {
-				// 로그인 페이지로 이동
-				router.push('/user/user-login')
-			})
+			credentialExpiration()
+			useAlert({ msg: '권한이 없습니다. 로그인해 주세요.' })
+			// 로그인 페이지로 이동
+			router.push('/user/user-login')
 			return false
 		}
 
@@ -81,6 +82,9 @@ export default function Cookie() {
 			return true
 		} else {
 			credentialExpiration()
+			useAlert({ msg: '권한이 만료 되었습니다. 로그인해 주세요.' })
+			// 로그인 페이지로 이동
+			router.push('/user/user-login')
 			return false
 		}
 	}
@@ -95,15 +99,12 @@ export default function Cookie() {
 			path: '/',
 		})
 
+		removeSession('userInfo')
+
 		// user state 초기화
 		userDispatch({
 			type: SET_INIT_USER,
 			payload: userInitialState,
-		})
-
-		useAlert({ msg: '권한이 만료 되었습니다. 로그인해 주세요.' }).then(() => {
-			// 로그인 페이지로 이동
-			router.push('/user/user-login')
 		})
 	}
 

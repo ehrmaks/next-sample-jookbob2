@@ -1,40 +1,39 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "lib": [
-        "dom",
-        "dom.iterable",
-        "esnext"
-      ],
-      "skipLibCheck": true,
-      "strict": false,
-      "forceConsistentCasingInFileNames": true,
-      "noEmit": true,
-      "esModuleInterop": true,
-      "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "experimentalDecorators" : true,
-      "jsx": "preserve",
-      "baseUrl": ".",
-      "paths": {
-        "@": ["./"],
-        "@/*": ["./*"],
-        "@comp/*": ["./components/*"],
-        "@container/*": ["./containers/*"],
-        "@api/*": ["./core/api/*"],
-        "@store/*": ["./core/store/*"],
-        "@styles/*": ["./styles/*"],
-        "@lang/*": ["./lang/*"]
-      }
-    },
-    "include": [
-      "next-env.d.js",
-      "**/*.js",
-      "**/*.jsx"
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "exclude": [
-      "node_modules"
-    ],
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@": ["./"],
+      "@/*": ["./*"],
+      "@comp/*": ["./components/*"],
+      "@container/*": ["./containers/*"],
+      "@api/*": ["./core/api/*"],
+      "@store/*": ["./core/store/*"],
+      "@styles/*": ["./styles/*"],
+      "@lang/*": ["./lang/*"]
+    }
+  },
+  "include": [
+    "next-env.d.js",
+    "**/*.js",
+    "**/*.jsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
 }

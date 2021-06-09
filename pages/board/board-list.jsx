@@ -8,7 +8,7 @@ export default function BoardList() {
 	return (
 		<>
 			<Meta title={t('meta_title_board_list')} desc={t('meta_desc_board_list')}></Meta>
-			<BoardListContainer t={t} />
+			<BoardListContainer />
 		</>
 	)
 }
